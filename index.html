@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baraka | Web Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" sizes="180x180" href="faviicon.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+        :root {
+            --primary: #0A67EF;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+        .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00f5ff, #0099ff);
+        }
+        h1 { margin: 15px 0; font-size: 2.8rem; }
+        .subtitle { color: #00f5ff; font-size: 1.3rem; }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+        .card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.4s;
+            border: 2px solid transparent;
+        }
+        .card:hover {
+            transform: translateY(-15px);
+            border-color: #00f5ff;
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.15);
+        }
+        .card.popular {
+            border-color: #00f5ff;
+            transform: scale(1.08);
+        }
+        .price {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #00f5ff;
+            margin: 15px 0;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 14px 35px;
+            background: #00f5ff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #fff;
+            transform: scale(1.05);
+        }
+        ul { text-align: left; margin: 25px 0; }
+        li { margin: 12px 0; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            transition: background-color 0.5s ease;
+        }
+
+        .title-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-img {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-img:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 30px 60px rgba(10, 103, 239, 0.4);
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0A67EF;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .theme-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-[#0A67EF] text-white min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-black/70 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-white rounded-2xl flex items-center justify-center text-[#0A67EF] font-bold text-2xl">B</div>
+                <h1 class="title-font text-3xl font-semibold tracking-tighter">Baraka</h1>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link text-lg font-medium hover:text-white/80">About</a>
+                <a href="#portfolio" class="nav-link text-lg font-medium hover:text-white/80">Portfolio</a>
+                <a href="#contact" class="nav-link text-lg font-medium hover:text-white/80">Contact</a>
+                 <a href="#price" class="nav-link text-lg font-medium hover:text-white/80">Price</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Language Switch -->
+                <div class="flex bg-white/10 rounded-3xl p-1">
+                    <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn px-5 py-2 rounded-3xl text-sm font-medium transition-all active">EN</button>
+                    <button onclick="switchLanguage('sw')" id="btn-sw" class="lang-btn px-5 py-2 rounded-3xl text-sm font-medium transition-all">SW</button>
+                </div>
+
+                <!-- Theme Switcher -->
+                <div class="relative group">
+                    <button onclick="toggleThemeMenu()" class="theme-btn bg-white/10 hover:bg-white/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+
+                    <!-- Theme Menu -->
+                    <div id="theme-menu" class="hidden absolute right-0 mt-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-3 shadow-2xl w-56 z-50">
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="changeBackground('#0A67EF')" class="w-12 h-12 rounded-2xl bg-[#0A67EF] ring-2 ring-white/30 hover:ring-white/70"></button>
+                            <button onclick="changeBackground('#ffffff')" class="w-12 h-12 rounded-2xl bg-white ring-2 ring-white/30 hover:ring-white/70"></button>
+                            <button onclick="changeBackground('#FF6B00')" class="w-12 h-12 rounded-2xl bg-[#FF6B00] ring-2 ring-white/30 hover:ring-white/70"></button>
+                            <button onclick="changeBackground('#FFD700')" class="w-12 h-12 rounded-2xl bg-[#FFD700] ring-2 ring-white/30 hover:ring-white/70"></button>
+                            <button onclick="changeBackground('#7C3AED')" class="w-12 h-12 rounded-2xl bg-[#7C3AED] ring-2 ring-white/30 hover:ring-white/70"></button>
+                            <button onclick="changeBackground('#111827')" class="w-12 h-12 rounded-2xl bg-[#111827] ring-2 ring-white/30 hover:ring-white/70"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center">
+    <i id="menu-icon" class="fas fa-bars text-2xl"></i>
+</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-24 pb-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div id="greeting" class="inline-flex items-center gap-2 bg-white/10 px-6 py-3 rounded-3xl text-lg">
+                    👋 Hello, I'm
+                </div>
+
+                <h1 id="name" class="title-font text-7xl md:text-8xl font-bold leading-none tracking-tighter">
+                    Baraka
+                </h1>
+
+                <p id="tagline" class="text-2xl text-white/80 max-w-lg">
+                    Passionate Web Developer crafting beautiful digital experiences.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <a href="#portfolio" class="px-8 py-4 bg-white text-[#0A67EF] rounded-3xl font-semibold flex items-center gap-3 hover:scale-105 transition-all">
+                        View My Work
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border border-white/50 hover:bg-white/10 rounded-3xl font-semibold transition-all">
+                        Get In Touch
+                    </a>
+                </div>
+
+                <!-- Tech Stack -->
+                <div class="pt-8">
+                    <p class="text-white/60 mb-4">Technologies I love:</p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-2 bg-white/10 rounded-3xl text-sm font-medium">HTML5</span>
+                        <span class="px-5 py-2 bg-white/10 rounded-3xl text-sm font-medium">CSS3</span>
+                        <span class="px-5 py-2 bg-white/10 rounded-3xl text-sm font-medium">JavaScript</span>
+                        <span class="px-5 py-2 bg-white/10 rounded-3xl text-sm font-medium">Python</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Image -->
+            <div class="flex justify-center">
+                <img src="oB4az.jpg" alt="Baraka" class="hero-img w-full max-w-[420px] rounded-3xl shadow-2xl border border-white/20" id="profile-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 bg-black/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 id="portfolio-title" class="title-font text-5xl font-bold mb-4">Featured Projects</h2>
+                <p id="portfolio-subtitle" class="text-xl text-white/70 max-w-md mx-auto">Here are some of the websites I've built with love</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                <!-- Projects populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5">
+                    <img src="oB4az.jpg" alt="Baraka working" class="rounded-3xl shadow-2xl">
+                </div>
+                <div class="md:col-span-7 space-y-8">
+                    <h2 id="about-title" class="title-font text-5xl font-bold">About Me</h2>
+                    
+                    <div id="about-text" class="text-lg leading-relaxed text-white/80 space-y-6">
+                        <p>I am a passionate web developer with strong skills in frontend development and growing backend knowledge.</p>
+                        <p>My favorite tools are HTML, CSS, JavaScript, Python, and C. I love creating fast, beautiful, and user-friendly websites.</p>
+                    </div>
+
+                    <div class="flex gap-6">
+                        <div>
+                            <div class="text-4xl font-bold">3+</div>
+                            <div class="text-white/60">Projects Completed</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold">2</div>
+                            <div class="text-white/60">Clients Happy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Bei au Price-->
+    <section>
+<div class="container" id="price">
+        <div class="pricing-grid">
+            
+            <!-- Basic -->
+            <div class="card">
+                <h2>Basic Website</h2>
+                <p>Perfect for personal or startup websites</p>
+                <div class="price">Tsh 500,000</div>
+                <ul>
+                    <li>✔ 3 Pages Website</li>
+                    <li>✔ Mobile Responsive</li>
+                    <li>✔ Contact Form Included</li>
+                </ul>
+                <a href="#" class="btn">Chagua Basic</a>
+            </div>
+
+            <!-- Standard -->
+            <div class="card popular">
+                <h2>Standard Website</h2>
+                <p>Best for growing small businesses</p>
+                <div class="price">Tsh 460,000</div>
+                <ul>
+                    <li>✔ 5 Pages Website</li>
+                    <li>✔ SEO Optimization</li>
+                    <li>✔ Free 1 Year Hosting</li>
+                </ul>
+                <a href="#" class="btn">Chagua Standard</a>
+            </div>
+
+            <!-- Premium -->
+            <div class="card">
+                <h2>Premium Website</h2>
+                <p>For large businesses & eCommerce</p>
+                <div class="price">Tsh 1,150,000</div>
+                <ul>
+                    <li>✔ 10+ Pages Website</li>
+                    <li>✔ E-Commerce Integration</li>
+                    <li>✔ Priority Customer Support</li>
+                </ul>
+                <a href="#" class="btn">Chagua Premium</a>
+            </div>
+
+        </div>
+    </div>
+    </section>
+    <!-- Social & Contact -->
+    <section id="contact" class="py-24 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 id="contact-title" class="title-font text-5xl font-bold mb-3">Let's Connect</h2>
+                <p id="contact-subtitle" class="text-white/70">Find me on social media</p>
+            </div>
+
+            <div class="flex justify-center gap-8 text-5xl">
+                <a href="https://www.tiktok.com/@bressingmuhsin" class="hover:text-[#FF0000] transition-colors"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="hover:text-[#E1306C] transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-[#1877F2] transition-colors"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/255623300020" class="hover:text-[#25D366] transition-colors"><i class="fab fa-whatsapp"></i></a>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="mailto:bressingmuhsin@gmail.com" class="inline-flex items-center gap-3 bg-white text-black px-10 py-5 rounded-3xl text-xl font-semibold hover:scale-105 transition-all">
+                    <i class="fas fa-envelope"></i>
+                    Send me an Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-white/10 text-center text-white/50 text-sm">
+        © 2026 Created by: Baraka.M I Made with ❤️.
+    </footer>
+
+    <script>
+        // Language Data
+        const translations = {
+            en: {
+                greeting: "👋 Hello, I'm",
+                name: "Baraka",
+                tagline: "Passionate Web Developer crafting beautiful digital experiences.",
+                portfolioTitle: "Featured Projects",
+                portfolioSubtitle: "Here are some of the websites I've built with love",
+                aboutTitle: "About Me",
+                aboutText: `
+                    <p>I am a passionate web developer with strong skills in frontend development and growing backend knowledge.</p>
+                    <p>My favorite tools are HTML, CSS, JavaScript, Python, and C. I love creating fast, beautiful, and user-friendly websites.</p>
+                `,
+                contactTitle: "Let's Connect",
+                contactSubtitle: "Find me on social media"
+            },
+            sw: {
+                greeting: "👋 Habari, Mimi ni",
+                name: "Baraka",
+                tagline: "Msanidi wa Wavuti mwenye shauku ya kuunda uzoefu mzuri wa kidijitali.",
+                portfolioTitle: "Miradi Yangu",
+                portfolioSubtitle: "Hapa kuna baadhi ya tovuti nilizotengeneza kwa upendo",
+                aboutTitle: "Kuhusu Mimi",
+                aboutText: `
+                    <p>Mimi ni msanidi wa wavuti mwenye shauku na ustadi mkubwa katika frontend na maarifa yanayokua katika backend.</p>
+                    <p>Lugha ninazopenda ni HTML, CSS, JavaScript, Python na C. Ninapenda kuunda tovuti za kasi, nzuri na rahisi kutumia.</p>
+                `,
+                contactTitle: "Tuungane",
+                contactSubtitle: "Nipate kwenye mitandao ya kijamii"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update buttons
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-sw').classList.toggle('active', lang === 'sw');
+            
+            // Update content
+            document.getElementById('greeting').textContent = translations[lang].greeting;
+            document.getElementById('tagline').textContent = translations[lang].tagline;
+            document.getElementById('portfolio-title').textContent = translations[lang].portfolioTitle;
+            document.getElementById('portfolio-subtitle').textContent = translations[lang].portfolioSubtitle;
+            document.getElementById('about-title').textContent = translations[lang].aboutTitle;
+            document.getElementById('about-text').innerHTML = translations[lang].aboutText;
+            document.getElementById('contact-title').textContent = translations[lang].contactTitle;
+            document.getElementById('contact-subtitle').textContent = translations[lang].contactSubtitle;
+        }
+
+        // Background Changer
+        function changeBackground(color) {
+            document.body.style.background = color;
+            if (color === '#ffffff') {
+                document.body.style.color = '#111827';
+            } else {
+                document.body.style.color = 'white';
+            }
+        }
+
+        function toggleThemeMenu() {
+            document.getElementById('theme-menu').classList.toggle('hidden');
+        }
+
+        // Sample Projects
+        const projects = [
+            {
+                title: "6wery-Pichambao",
+                desc: "Mzoefu wa utengenezaji picha mbao",
+                img: "66wery.png",
+                link: "https://bressed2024.github.io/6wery-pichambao/"
+            },
+            {
+                title: "School Management System",
+                desc: "Full dashboard for managing students and teachers",
+                img: "https://picsum.photos/id/237/600/400",
+                link: "#"
+            },
+            {
+                title: "Fitness Tracking App",
+                desc: "Beautiful UI for tracking workouts and progress",
+                img: "https://picsum.photos/id/180/600/400",
+                link: "#"
+            },
+            {
+                title: "Restaurant Booking",
+                desc: "Online table reservation system",
+                img: "https://picsum.photos/id/292/600/400",
+                link: "#"
+            },
+            {
+                title: "Portfolio Template",
+                desc: "Clean and professional personal website",
+                img: "https://picsum.photos/id/1015/600/400",
+                link: "#"
+            }
+        ];
+
+        function renderProjects() {
+            const container = document.getElementById('projects-grid');
+            container.innerHTML = '';
+
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = `project-card bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden`;
+                card.innerHTML = `
+                    <img src="${project.img}" class="w-full h-56 object-cover">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-semibold mb-3">${project.title}</h3>
+                        <p class="text-white/70 mb-6">${project.desc}</p>
+                        <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 text-[#0A67EF] font-medium hover:underline">
+                            View Project →
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Mobile Menu
+       function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const icon = document.getElementById('menu-icon');
+
+    menu.classList.toggle('hidden');
+
+    if(menu.classList.contains('hidden')){
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }else{
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    }
+}
+        // Initialize everything
+        window.onload = function() {
+            renderProjects();
+            
+            // Close theme menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const menu = document.getElementById('theme-menu');
+                if (!e.target.closest('.group')) {
+                    menu.classList.add('hidden');
+                }
+            });
+
+            // Tailwind script already loaded
+            console.log('%c✅ Baraka Portfolio Loaded Successfully!', 'color:#0A67EF; font-size:16px; font-weight:bold');
+        };
+    </script>
+</body>
+</html>
